@@ -12,23 +12,39 @@ struct ContentView: View {
     //Watch for changes to envoke the body 
     @ObservedObject var expenses = Expenses()
     
+    //Flag to see if add view is showing
+    @State private var showingAddExpense = false
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(expenses.items) { item in
-                    Text(item.name)
+            VStack{
+                List {
+                    ForEach(expenses.items) { item in
+                        Text(item.name)
+                    }
+                    .onDelete(perform: removeItems)
                 }
-                .onDelete(perform: removeItems)
-            }
-            .navigationBarTitle("iExpense")
-            .navigationBarItems(trailing:
+                .navigationBarTitle("iExpense")
                 Button(action: {
-                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
-                    self.expenses.items.append(expense)
+                    self.showingAddExpense = true
                 }) {
-                    Image(systemName: "plus")
+                    HStack{
+                        Image(systemName: "plus")
+                        Text("Add")
+                    }
                 }
-            )
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.blue)
+                .cornerRadius(25)
+                
+            }
+            .padding()
+            
+        }
+        .sheet(isPresented: $showingAddExpense){
+            //Show add view instance here
+            AddView(expenses: self.expenses)
         }
     }
     

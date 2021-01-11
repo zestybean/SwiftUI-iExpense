@@ -19,6 +19,6 @@ struct ExpenseItem: Identifiable {
 }
 
 //ViewModel
-class Expenses: ObservableObject {
+    class Expenses: ObservableObject {
     @Published var items = [ExpenseItem]()
 }
