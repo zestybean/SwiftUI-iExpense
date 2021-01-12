@@ -30,15 +30,33 @@ struct AddView: View {
                 
                 TextField("Amount", text: $amount)
                     .keyboardType(.numberPad)
+                
+                Section{
+                    HStack{
+                        Spacer()
+                        Button(action: {
+                            if let actualAmount = Int(self.amount)
+                            {
+                                let item = ExpenseItem(name: self.name, type: self.type, amount: actualAmount)
+                                self.expenses.items.append(item)
+                            }
+                        }) {
+                            HStack{
+                                Image(systemName: "square.and.pencil")
+                                Text("Save")
+                            }
+                        }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(25)
+                        
+                        Spacer()
+                    }
+                }
+               
             }
             .navigationBarTitle("Add expense")
-            .navigationBarItems(trailing: Button("Save"){
-                if let actualAmount = Int(self.amount)
-                {
-                    let item = ExpenseItem(name: self.name, type: self.type, amount: actualAmount)
-                    self.expenses.items.append(item)
-                }
-            })
         }
     }
 }
