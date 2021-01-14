@@ -30,7 +30,7 @@ struct AddView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 
                 TextField("Amount", text: $amount)
-                    .keyboardType(.numberPad)3
+                    .keyboardType(.numberPad)
                 
                 Section{
                     HStack{
