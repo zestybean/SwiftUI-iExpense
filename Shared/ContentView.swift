@@ -17,11 +17,20 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack{
+            VStack {
                 List {
                     ForEach(expenses.items) { item in
-                        Text(item.name)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            Spacer()
+                            Text("$\(item.amount)")
+                        }
                     }
+                    
                     .onDelete(perform: removeItems)
                 }
                 .navigationBarTitle("iExpense")
